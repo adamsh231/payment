@@ -17,6 +17,8 @@ class CreateKaryawanTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('jabatan_id');
             $table->string('name');
+            $table->string('username')->unique();
+            $table->string('password')->index();
             $table->date('birth');
             $table->string('phone');
             $table->boolean('gender');
