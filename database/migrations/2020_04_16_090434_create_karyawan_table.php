@@ -22,6 +22,7 @@ class CreateKaryawanTable extends Migration
             $table->date('birth');
             $table->string('phone');
             $table->boolean('gender');
+            $table->rememberToken();
             $table->timestamps();
         });
     }

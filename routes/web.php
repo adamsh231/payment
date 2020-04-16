@@ -11,18 +11,31 @@
 |
 */
 
-Route::get('/', function () {
-    return view('home');
+Route::group(['middleware' => ['guest']], function () {
+    Route::get('/', function () {
+        return view('home');
+    });
+    Route::get('/login/admin', function () {
+        return view('loginA');
+    });
+    Route::post('/admin', 'AuthController@authAdmin');
+    Route::get('/login/karyawan', function () {
+        return view('loginK');
+    });
+    Route::post('/karyawan', 'AuthController@authKaryawan');
 });
-Route::get('/login/admin', function () {
-    return view('loginA');
+
+
+Route::group(['middleware' => ['isAdmin']], function () {
+    Route::get('/admin', function () {
+        return view('admin/dashboard');
+    });
 });
-Route::get('/login/karyawan', function () {
-    return view('loginK');
+
+Route::group(['middleware' => ['isKaryawan']], function () {
+    Route::get('/karyawan', function () {
+        return view('karyawan/dashboard');
+    });
 });
-Route::post('/admin', function () {
-    return view('admin/dashboard');
-});
-Route::post('/karyawan', function () {
-    return view('karyawan/dashboard');
-});
+
+Route::get('/logout', 'AuthController@logout');
