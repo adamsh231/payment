@@ -12,5 +12,17 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
+});
+Route::get('/login/admin', function () {
+    return view('loginA');
+});
+Route::get('/login/karyawan', function () {
+    return view('loginK');
+});
+Route::post('/admin', function () {
+    return view('admin/dashboard');
+});
+Route::post('/karyawan', function () {
+    return view('karyawan/dashboard');
 });
