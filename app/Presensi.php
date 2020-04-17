@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Presensi extends Model
 {
-    protected $table = "gaji";
+    protected $table = "presensi";
     protected $guarded = ['id'];
 
     public function karyawan(){
