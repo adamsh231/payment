@@ -46,7 +46,19 @@ Route::group(['middleware' => ['isAdmin']], function () {
 
 Route::group(['middleware' => ['isKaryawan']], function () {
     Route::get('/karyawan', function () {
-        return view('karyawan/dashboard');
+        return view('karyawan/dashboard', ['active' => 0]);
+    });
+    Route::get('/karyawan/biodata', function () {
+        return view('karyawan/biodata', ['active' => 1]);
+    });
+    Route::get('/karyawan/absen', function () {
+        return view('karyawan/absen', ['active' => 2]);
+    });
+    Route::get('/karyawan/lembur', function () {
+        return view('karyawan/lembur', ['active' => 3]);
+    });
+    Route::get('/karyawan/profile', function () {
+        return view('karyawan/profile', ['active' => 4]);
     });
 });
 

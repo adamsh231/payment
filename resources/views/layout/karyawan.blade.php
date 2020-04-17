@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/admin.min.css') }}">
     @yield('add_style')
 </head>
 
@@ -16,7 +17,7 @@
     <div id="wrapper">
         <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
             <div class="container-fluid d-flex flex-column p-0">
-                <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
+                <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="{{ url('/karyawan') }}">
                     <div class="sidebar-brand-icon rotate-n-15">
                         <i class="fas fa-laugh-wink"></i>
                     </div>
@@ -24,24 +25,26 @@
                 </a>
                 <hr class="sidebar-divider my-0">
                 <ul class="nav navbar-nav text-light" id="accordionSidebar">
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="index.html">
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link {{ ($active == 0 ? "active" : "") }}" href="{{ url('/karyawan') }}">
                             <i class="fas fa-tachometer-alt"></i>
-                            <span>&nbsp;Dashboard</span></a>
+                            <span>&nbsp;Dashboard</span>
+                        </a>
                     </li>
                     <hr class="sidebar-divider">
                     <div class="sidebar-heading">
                         <p class="mb-0">Main Menu</p>
                     </div>
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link" href="charts.html">
+                        <a class="nav-link {{ ($active == 1 ? "active" : "") }}" href="{{ url('/karyawan/biodata') }}">
                             <i class="fa fa-paste"></i><span>&nbsp;Biodata</span>
                         </a></li>
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link" href="tables.html">
+                        <a class="nav-link {{ ($active == 2 ? "active" : "") }}" href="{{ url('/karyawan/absen') }}">
                             <i class="fa fa-hand-paper-o"></i>
                             <span>&nbsp;Absen</span>
                         </a>
-                        <a class="nav-link" href="tables.html">
+                        <a class="nav-link {{ ($active == 3 ? "active" : "") }}" href="{{ url('/karyawan/lembur') }}">
                             <i class="fa fa-fire"></i>
                             <span>&nbsp;Lembur</span>
                         </a>
@@ -69,7 +72,7 @@
                                         <img class="border rounded-circle img-profile" src="{{ asset('assets/img/avatars/avatar1.jpeg') }}">
                                     </a>
                                     <div class="dropdown-menu shadow dropdown-menu-right animated--grow-in" role="menu">
-                                        <a class="dropdown-item" role="presentation" href="#">
+                                        <a class="dropdown-item" role="presentation" href="{{ url('/karyawan/profile') }}">
                                             <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                             &nbsp;Profile</a>
                                         <div class="dropdown-divider"></div>
