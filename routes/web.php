@@ -28,7 +28,19 @@ Route::group(['middleware' => ['guest']], function () {
 
 Route::group(['middleware' => ['isAdmin']], function () {
     Route::get('/admin', function () {
-        return view('admin/dashboard');
+        return view('admin/dashboard', ['active' => 0]);
+    });
+    Route::get('/admin/karyawan', function () {
+        return view('admin/karyawan', ['active' => 1]);
+    });
+    Route::get('/admin/gaji', function () {
+        return view('admin/gaji', ['active' => 2]);
+    });
+    Route::get('/admin/laporan', function () {
+        return view('admin/laporan', ['active' => 3]);
+    });
+    Route::get('/admin/profile', function () {
+        return view('admin/profile', ['active' => 4]);
     });
 });
 
