@@ -30,9 +30,7 @@ Route::group(['middleware' => ['isAdmin']], function () {
     Route::get('/admin', function () {
         return view('admin/dashboard', ['active' => 0]);
     });
-    Route::get('/admin/karyawan', function () {
-        return view('admin/karyawan', ['active' => 1]);
-    });
+    Route::get('/admin/karyawan', 'AdminController@karyawan');
     Route::get('/admin/gaji', function () {
         return view('admin/gaji', ['active' => 2]);
     });

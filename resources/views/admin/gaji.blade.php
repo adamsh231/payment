@@ -30,50 +30,29 @@
                 <table class="table dataTable my-0" id="dataTable">
                     <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Position</th>
-                            <th>Office</th>
-                            <th>Age</th>
-                            <th>Start date</th>
-                            <th>Salary</th>
-                        </tr>
+                            <th class="text-center" style="width: 10%">ID Karyawan</th>
+                            <th class="text-center">Nama</th>
+                            <th class="text-center">Jumlah Absen</th>
+                            <th class="text-center">Jumlah Lembur</th>
+                            <th class="text-center">Gaji Harian</th>
+                            <th class="text-center">Action</th>
+                        </th>
                     </thead>
                     <tbody>
                         <tr>
-                            <td><img class="rounded-circle mr-2" width="30" height="30" src="assets/img/avatars/avatar1.jpeg">Airi Satou</td>
+                            <td class="text-center">3215464</td>
                             <td>Accountant</td>
-                            <td>Tokyo</td>
-                            <td>33</td>
-                            <td>2008/11/28</td>
-                            <td class="text-center"><a class="btn btn-info btn-sm btn-icon-split" role="button"><span class="text-white-50 icon"><i class="fa fa-calculator"></i></span><span class="text-white text">Bayar Gaji</span></a></td>
-                        </tr>
-                        <tr>
-                            <td><img class="rounded-circle mr-2" width="30" height="30" src="assets/img/avatars/avatar2.jpeg">Angelica Ramos</td>
-                            <td>Chief Executive Officer(CEO)</td>
-                            <td>London</td>
-                            <td>47</td>
-                            <td>2009/10/09<br></td>
-                            <td class="text-center"><a class="btn btn-success btn-circle ml-1" role="button" data-toggle="tooltip" data-bs-tooltip="" title="Cetak Ulang"><i class="fas fa-check text-white"></i></a></td>
-                        </tr>
-                        <tr>
-                            <td><img class="rounded-circle mr-2" width="30" height="30" src="assets/img/avatars/avatar3.jpeg">Ashton Cox</td>
-                            <td>Junior Technical Author</td>
-                            <td>San Francisco</td>
-                            <td>66</td>
-                            <td>2009/01/12<br></td>
-                            <td>$86,000</td>
+                            <td class="text-center">Tokyo</td>
+                            <td class="text-center">33</td>
+                            <td class="text-right">2008/11/28</td>
+                            <td class="text-center">
+                                <a class="btn btn-info btn-sm btn-icon-split" role="button">
+                                    <span class="text-white-50 icon"><i class="fa fa-calculator"></i></span>
+                                    <span class="text-white text">Bayar Gaji</span>
+                                </a>
+                            </td>
                         </tr>
                     </tbody>
-                    <tfoot>
-                        <tr>
-                            <td><strong>Name</strong></td>
-                            <td><strong>Position</strong></td>
-                            <td><strong>Office</strong></td>
-                            <td><strong>Age</strong></td>
-                            <td><strong>Start date</strong></td>
-                            <td><strong>Salary</strong></td>
-                        </tr>
-                    </tfoot>
                 </table>
             </div>
         </div>
