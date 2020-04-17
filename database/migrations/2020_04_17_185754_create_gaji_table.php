@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePresensiTable extends Migration
+class CreateGajiTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreatePresensiTable extends Migration
      */
     public function up()
     {
-        Schema::create('presensi', function (Blueprint $table) {
+        Schema::create('gaji', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('karyawan_id');
-            $table->boolean('worktime')->default(0);
-            $table->boolean('overtime')->default(0);
-            $table->date('date');
+            $table->date('period'); //TODO: Adding Status?
+            $table->boolean('status')->default(0);
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ class CreatePresensiTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('presensi');
+        Schema::dropIfExists('gaji');
     }
 }

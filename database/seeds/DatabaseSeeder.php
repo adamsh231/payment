@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Faker\Factory as Faker;
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,23 +17,89 @@ class DatabaseSeeder extends Seeder
             'username' => 'admin',
             'password' => bcrypt('admin')
         ]);
-        DB::table('jabatan')->insert([
-            'id' => '100',
-            'name' => 'supervisor',
-            'daily' => '120000',
-            'overtime' => '30000',
-            'food' => '50000',
-            'transport' => '10000',
-        ]);
+
+        $jabatan = [
+            1 =>
+            "Accounting", "Restaurant Manager", "Personalia", "Supervisor",
+            "Head Chef", "Cashier", "Waiter/Waitress", "Assistant Chef"
+        ];
+
+        for ($i = 1; $i <= 8; $i++) {
+            if ($i >= 4) {
+                DB::table('jabatan')->insert([
+                    'id' => $i,
+                    'name' => $jabatan[($i)],
+                    'daily' => 40000,
+                    'overtime' => 20000,
+                    'food' => 15000,
+                    'transport' => 10000,
+                ]);
+            } else {
+                DB::table('jabatan')->insert([
+                    'id' => $i,
+                    'name' => $jabatan[$i],
+                    'daily' => 50000,
+                    'overtime' => 25000,
+                    'food' => 15000,
+                    'transport' => 10000,
+                ]);
+            }
+        }
+
         DB::table('karyawan')->insert([
-            'id' => '100',
-            'jabatan_id' => '100',
+            'id' => '1',
+            'jabatan_id' => '3',
             'name' => 'Adam Syarif Hidayatullah',
             'username' => 'adamsh231',
             'password' => bcrypt('dayung231'),
             'birth' => '1998-10-13',
             'phone' => '082140320499',
+            'address' => 'Malang',
             'gender' => 1,
         ]);
+
+        $faker = Faker::create('id_ID');
+
+        $presensi_id_count = 1;
+        $gaji_id_count = 1;
+        for ($i = 1; $i <= 20; $i++) {
+            if ($i > 1) {
+                $gender = $faker->numberBetween(0, 1);
+                DB::table('karyawan')->insert([
+                    'id' => $i,
+                    'jabatan_id' => $faker->numberBetween(1, 8),
+                    'name' => $faker->name($gender),
+                    'username' => $faker->userName,
+                    'password' => bcrypt('dayung231'),
+                    'birth' => $faker->date($format = 'Y-m-d', $max = '2000-01-01'),
+                    'phone' => $faker->phoneNumber,
+                    'address' => $faker->address,
+                    'gender' => $gender,
+                ]);
+            }
+            for ($j = 1; $j <= 70; $j++) {
+                $bulan = ($j % 30 == 0 ? ((int) ($j / 30)) : ((int) ($j / 30)) + 1);
+                $hari = ($j % 30 == 0 ? 30 : ($j % 30));
+                $worktime = $faker->numberBetween(0, 1);
+                $overtime = ($worktime == 1 ? $faker->numberBetween(0, 1) : 0);
+                DB::table('presensi')->insert([
+                    'id' => $presensi_id_count,
+                    'karyawan_id' => $i,
+                    'worktime' => $worktime,
+                    'overtime' => $overtime,
+                    'date' => '2020-' . ($bulan + 2) . '-' . $hari,
+                ]);
+                $presensi_id_count++;
+            }
+            for ($j = 1; $j <= 3; $j++) {
+                DB::table('gaji')->insert([
+                    'id' => $gaji_id_count,
+                    'karyawan_id' => $i,
+                    'period' => '2020-' . ($j + 2) . '-1',
+                    'status' => $faker->numberBetween(0, 1),
+                ]);
+                $gaji_id_count++;
+            }
+        }
     }
 }

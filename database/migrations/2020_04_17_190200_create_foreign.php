@@ -19,6 +19,9 @@ class CreateForeign extends Migration
         Schema::table('presensi', function (Blueprint $table) {
             $table->foreign('karyawan_id')->references('id')->on('karyawan')->onDelete('cascade');
         });
+        Schema::table('gaji', function (Blueprint $table) {
+            $table->foreign('karyawan_id')->references('id')->on('karyawan')->onDelete('cascade');
+        });
     }
 
     /**
@@ -32,6 +35,9 @@ class CreateForeign extends Migration
             $table->dropForeign(['jabatan_id']);
         });
         Schema::table('presensi', function (Blueprint $table) {
+            $table->dropForeign(['karyawan_id']);
+        });
+        Schema::table('gaji', function (Blueprint $table) {
             $table->dropForeign(['karyawan_id']);
         });
     }

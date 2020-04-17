@@ -21,6 +21,7 @@ class CreateKaryawanTable extends Migration
             $table->string('password')->index();
             $table->date('birth');
             $table->string('phone');
+            $table->text('address');
             $table->boolean('gender');
             $table->rememberToken();
             $table->timestamps();
