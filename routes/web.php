@@ -39,6 +39,7 @@ Route::group(['middleware' => ['isAdmin']], function () {
     Route::get('/admin/profile', function () {
         return view('admin/profile', ['active' => 4]);
     });
+    Route::get('/admin/slip', 'AdminController@cetak');
 });
 
 Route::group(['middleware' => ['isKaryawan']], function () {

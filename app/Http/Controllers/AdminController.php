@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Karyawan;
 use App\Presensi;
+use PDF;
 
 class AdminController extends Controller
 {
@@ -38,9 +39,15 @@ class AdminController extends Controller
                 'active' => 2,
                 'karyawan' => $karyawan,
                 'periode_tahun' => $periode_tahun,
-                'bulan' => (int)$bulan,
+                'bulan' => (int) $bulan,
                 'tahun' => $tahun,
             ]
         );
+    }
+
+    public function cetak()
+    {
+        $pdf = PDF::loadview('pdf/slip');
+        return $pdf->stream('Slip Gaji Tanggal 13 Oktober 2019');
     }
 }
