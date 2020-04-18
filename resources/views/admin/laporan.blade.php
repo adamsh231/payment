@@ -9,15 +9,15 @@
         <div style="margin-bottom: 0px;">
             <form style="margin-left: 0;margin-right: 0;margin-bottom: 0px;">
                 <div class="form-row float-right d-xl-flex justify-content-xl-center" style="margin-right: 0px;width: 100%;">
-                    <div class="col-3" style="padding-right: 0px;padding-left: 0px;">
+                    <div class="col-3">
                         <select class="form-control" style="padding: 10px;">
                             <option value="12" selected="">Desember</option>
                         </select>
                     </div>
-                    <div class="col-2" style="padding-right: 0px;padding-left: 0px;">
-                        <h1 class="text-center" style="font-size: 27px;">sampai</h1>
+                    <div class="col-2 text-center">
+                        <h2><i class="fas fa-arrow-right text-dark"></i></h2>
                     </div>
-                    <div class="col-3" style="padding-right: 0px;padding-left: 0px;">
+                    <div class="col-3">
                         <select class="form-control" style="padding: 10px;">
                             <option value="12" selected="">Desember</option>
                         </select>
@@ -27,8 +27,10 @@
                             <option value="12" selected="">2018</option>
                         </select>
                     </div>
-                    <div class="col-2 d-xl-flex justify-content-xl-center">
-                        <a class="btn btn-link btn-block text-white btn-facebook" role="button" style="width: 80%;">Cetak</a>
+                    <div class="col-2 justify-content-xl-center">
+                        <a data-toggle="tooltip" data-bs-tooltip="" title="Cetak" class="btn btn-link btn-block text-white btn-facebook" role="button" style="width: 80%;">
+                            <i class="fas fa-print text-white m-0 p-0"></i>
+                        </a>
                     </div>
                 </div>
             </form>

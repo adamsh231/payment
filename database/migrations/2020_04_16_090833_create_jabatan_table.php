@@ -16,7 +16,7 @@ class CreateJabatanTable extends Migration
         Schema::create('jabatan', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->bigInteger('daily');
+            $table->bigInteger('worktime');
             $table->bigInteger('overtime');
             $table->bigInteger('food');
             $table->bigInteger('transport');

@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
                 DB::table('jabatan')->insert([
                     'id' => $i,
                     'name' => $jabatan[($i)],
-                    'daily' => 40000,
+                    'worktime' => 40000,
                     'overtime' => 20000,
                     'food' => 15000,
                     'transport' => 10000,
@@ -38,7 +38,7 @@ class DatabaseSeeder extends Seeder
                 DB::table('jabatan')->insert([
                     'id' => $i,
                     'name' => $jabatan[$i],
-                    'daily' => 50000,
+                    'worktime' => 50000,
                     'overtime' => 25000,
                     'food' => 15000,
                     'transport' => 10000,
@@ -89,7 +89,7 @@ class DatabaseSeeder extends Seeder
                     'karyawan_id' => $i,
                     'worktime' => $worktime,
                     'overtime' => $overtime,
-                    'date' => '2020-' . ($bulan + 2) . '-' . $hari,
+                    'date' => '2019-' . ($bulan + 3) . '-' . $hari,
                 ]);
                 $presensi_id_count++;
             }
@@ -97,7 +97,7 @@ class DatabaseSeeder extends Seeder
                 DB::table('gaji')->insert([
                     'id' => $gaji_id_count,
                     'karyawan_id' => $i,
-                    'period' => '2020-' . ($j + 2) . '-1',
+                    'period' => '2019-' . ($j + 3) . '-1',
                     'status' => $faker->numberBetween(0, 1),
                 ]);
                 $gaji_id_count++;
