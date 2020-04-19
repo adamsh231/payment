@@ -147,7 +147,8 @@ class AdminController extends Controller
         return $pdf->stream('Laporan Gaji_' . $arr_bulan[$request->bulan1 - 1] . "-" . $arr_bulan[$request->bulan2 - 1] . "_" . $request->tahun);
     }
 
-    function addKaryawan(Request $request){
+    function addKaryawan(Request $request)
+    {
         $validator = Validator::make(
             $request->all(),
             [
@@ -180,6 +181,25 @@ class AdminController extends Controller
         $karyawan->gender = $request->gender;
         $karyawan->start_work = $request->start_work;
         $karyawan->save();
+
+        $result = "";
+        if (date('Y-m-d', strtotime($request->start_work))  == date('Y-m-d')) {
+            $presensi = new Presensi;
+            $presensi->karyawan_id = $karyawan->id;
+            $presensi->date = date('Y-m-d');
+            $presensi->save();
+            $gaji = new Gaji;
+            $gaji->id = date('hms').rand(0,9);
+            $gaji->karyawan_id = $karyawan->id;
+            $gaji->period = date('Y-m').'-01';
+            $gaji->save();
+        } else if (date('m-Y', strtotime($request->start_work)) == date('m-Y')) {
+            $gaji = new Gaji;
+            $gaji->id = date('hms').rand(0,9);
+            $gaji->karyawan_id = $karyawan->id;
+            $gaji->period = date('Y-m').'-01';
+            $gaji->save();
+        }
 
         return response()->json([
             'error' => false,
