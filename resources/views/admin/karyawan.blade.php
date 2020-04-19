@@ -34,7 +34,14 @@
                         <td>{{ $k->name }}</td>
                         <td class="text-center">{{ ($k->gender == 0 ? "Wanita" : "Pria") }}</td>
                         <td class="text-center">{{ $k->jabatan->name }}</td>
-                        <td class="text-center"><a class="btn btn-primary btn-circle ml-1" role="button"><i class="fa fa-pencil text-white"></i></a><a class="btn btn-danger btn-circle ml-1" role="button"><i class="fas fa-trash text-white"></i></a></td>
+                        <td class="text-center">
+                            <a onclick="viewModalEdit({{$k->id}},'{{$k->name}}','{{$k->username}}',{{$k->jabatan->id}},'{{$k->address}}','{{$k->birth}}','{{$k->phone}}',{{$k->gender}},'{{$k->start_work}}')" class="btn btn-primary btn-circle ml-1" role="button">
+                                <i class="fa fa-pencil text-white"></i>
+                            </a>
+                            <a class="btn btn-danger btn-circle ml-1" role="button">
+                                <i class="fas fa-trash text-white"></i>
+                            </a>
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -124,6 +131,104 @@
 @endslot
 @slot('modal_footer')
 <button onclick="tambah()" class="btn btn-primary">Tambah</button>
+@endslot
+@endcomponent
+
+@component('component/modal')
+@slot('modal_id','modal_edit_karyawan')
+@slot('modal_title', 'Edit Karyawan')
+@slot('modal_size', 'modal-lg')
+@slot('modal_body')
+<form>
+    <div class="form-group">
+        <label>
+            <strong>Nama</strong>
+        </label>
+        <input class="form-control" type="text" placeholder="Nama Karyawan" name="name">
+        <small name="name" class="form-text text-danger d-none"></small>
+    </div>
+    <div class="form-group">
+        <label>
+            <strong>Username</strong>
+        </label>
+        <input class="form-control" type="text" placeholder="Username Karyawan" name="username">
+        <small name="username" class="form-text text-danger d-none"></small>
+    </div>
+    <div class="form-group">
+        <label>
+            <strong>Password</strong>
+        </label>
+        <input class="form-control" type="password" placeholder="Isi Password untuk Mengubah" name="password">
+        <small name="password" class="form-text text-danger d-none"></small>
+    </div>
+    <div class="form-group">
+        <label>
+            <strong>Jabatan</strong>
+        </label>
+        <select class="form-control" name="jabatan">
+            <option selected></option>
+            @foreach ($jabatan as $j)
+            <option value="{{ $j->id }}">{{ $j->name }}</option>
+            @endforeach
+        </select>
+        <small name="jabatan" class="form-text text-danger d-none"></small>
+    </div>
+    <div class="form-group">
+        <label>
+            <strong>Alamat</strong>
+        </label>
+        <textarea class="form-control h-150px alamat" rows="6"></textarea>
+        <small name="address" class="form-text text-danger d-none"></small>
+    </div>
+    <div class="form-row">
+        <div class="col">
+            <div class="form-group">
+                <label>
+                    <strong>Tanggal Lahir</strong>
+                    <br>
+                </label>
+                <input class="form-control" type="date" name="birth">
+                <small name="birth" class="form-text text-danger d-none"></small>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label>
+                    <strong>No Handphone</strong>
+                </label>
+                <input class="form-control" type="text" placeholder="Nomor Handphone Karyawan" name="phone">
+                <small name="phone" class="form-text text-danger d-none"></small>
+            </div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col">
+            <div class="form-group">
+                <label>
+                    <strong>Jenis Kelamin</strong>
+                </label>
+                <select class="form-control" name="gender">
+                    <option selected></option>
+                    <option value="0">Wanita</option>
+                    <option value="1">Pria</option>
+                </select>
+                <small name="gender" class="form-text text-danger d-none"></small>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label>
+                    <strong>Mulai Bekerja</strong>
+                </label>
+                <input class="form-control" type="date" name="start_work">
+                <small name="start_work" class="form-text text-danger d-none"></small>
+            </div>
+        </div>
+    </div>
+</form>
+@endslot
+@slot('modal_footer')
+<button id="btn_edit" class="btn btn-primary">Update</button>
 @endslot
 @endcomponent
 

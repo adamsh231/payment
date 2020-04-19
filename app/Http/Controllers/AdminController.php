@@ -10,6 +10,7 @@ use App\Gaji;
 use App\Jabatan;
 use PDF;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
 class AdminController extends Controller
 {
@@ -124,10 +125,15 @@ class AdminController extends Controller
 
     function cetak(Request $request)
     {
+        if(!$request->filled('bulan1')){
+            return redirect('/admin/laporan');
+        }
+
         $arr_bulan = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
         $periode = $arr_bulan[$request->bulan1 - 1] . " s/d " . $arr_bulan[$request->bulan2 - 1] . " " . $request->tahun;
         $bulan1 = ($request->bulan1 < 10 ? '0' . $request->bulan1 : $request->bulan1);
         $bulan2 = ($request->bulan2 < 10 ? '0' . $request->bulan2 : $request->bulan2);
+
         $gaji = Gaji::with(['karyawan' => function ($query) {
             $query->with(['jabatan'])->get();
         }])->where(
@@ -156,7 +162,7 @@ class AdminController extends Controller
                 'jabatan' => ['required'],
                 'address' => ['required'],
                 'birth' => ['required'],
-                'phone' => ['required', 'numeric'],
+                'phone' => ['required', 'numeric', 'unique:karyawan'],
                 'gender' => ['required'],
                 'start_work' => ['required'],
             ]
@@ -200,6 +206,46 @@ class AdminController extends Controller
             $gaji->period = date('Y-m').'-01';
             $gaji->save();
         }
+
+        return response()->json([
+            'error' => false,
+        ], 200);
+    }
+
+    function editKaryawan(Request $request, Karyawan $karyawan){
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'name' => ['required'],
+                'username' => ['required', Rule::unique('karyawan')->ignore($karyawan->id)],
+                'jabatan' => ['required'],
+                'address' => ['required'],
+                'birth' => ['required'],
+                'phone' => ['required', 'numeric', Rule::unique('karyawan')->ignore($karyawan->id)],
+                'gender' => ['required'],
+                'start_work' => ['required'],
+            ]
+        );
+
+        if ($validator->fails()) {
+            return response()->json([
+                'error'    => true,
+                'messages' => $validator->errors(),
+            ], 422);
+        }
+
+        $karyawan->name = $request->name;
+        $karyawan->username = $request->username;
+        if($request->filled('password')){
+            $karyawan->password = Hash::make($request->password);
+        }
+        $karyawan->jabatan_id = $request->jabatan;
+        $karyawan->address = $request->address;
+        $karyawan->birth = $request->birth;
+        $karyawan->phone = $request->phone;
+        $karyawan->gender = $request->gender;
+        $karyawan->start_work = $request->start_work;
+        $karyawan->save();
 
         return response()->json([
             'error' => false,

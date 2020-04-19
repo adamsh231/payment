@@ -70,6 +70,5 @@
         tahun = $('#form_laporan select[name=tahun]').val();
         window.open('/admin/laporan/cetak?bulan1='+bulan1+'&bulan2='+bulan2+'&tahun='+tahun, '_blank');
     }
-
 </script>
 @endsection
