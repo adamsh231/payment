@@ -133,6 +133,6 @@ class AdminController extends Controller
                 'periode' => $periode
             ]
         );
-        return $pdf->stream('Slip Gaji_' . $arr_bulan[$request->bulan1-1]."-".$arr_bulan[$request->bulan2-1]."_".$request->tahun);
+        return $pdf->stream('Laporan Gaji_' . $arr_bulan[$request->bulan1-1]."-".$arr_bulan[$request->bulan2-1]."_".$request->tahun);
     }
 }

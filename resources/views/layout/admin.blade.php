@@ -115,11 +115,21 @@
                     <div class="text-center my-auto copyright"><span>Waroeng SS © 2020</span></div>
                 </div>
             </footer>
-        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+        </div>
+        <a class="border rounded d-inline scroll-to-top" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('assets/js/admin.min.js') }}"></script>
+    <script>
+        $(document).ready(function(){
+            if(window.screen.width <= 550){
+                $('#sidebarToggleTop').click();
+            }
+        });
+    </script>
     @yield('add_script')
 </body>
 

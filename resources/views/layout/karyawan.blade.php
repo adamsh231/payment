@@ -106,6 +106,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
     <script src="{{ asset('assets/js/admin.min.js') }}"></script>
+    <script>
+        $(document).ready(function(){
+            if(window.screen.width <= 550){
+                $('#sidebarToggleTop').click();
+            }
+        });
+    </script>
     @yield('add_script')
 </body>
 
