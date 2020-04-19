@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use App\Karyawan;
 use App\Presensi;
 use App\Gaji;
+use App\Jabatan;
 use PDF;
 
 class AdminController extends Controller
@@ -13,7 +15,15 @@ class AdminController extends Controller
     public function karyawan()
     {
         $karyawan = Karyawan::with(['jabatan'])->get();
-        return view('admin/karyawan', ['active' => 1, 'karyawan' => $karyawan]);
+        $jabatan = Jabatan::all();
+        return view(
+            'admin/karyawan',
+            [
+                'active' => 1,
+                'karyawan' => $karyawan,
+                'jabatan' => $jabatan
+            ]
+        );
     }
 
     public function gaji(Request $request)
@@ -113,8 +123,8 @@ class AdminController extends Controller
 
     function cetak(Request $request)
     {
-        $arr_bulan = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
-        $periode = $arr_bulan[$request->bulan1-1]." s/d ".$arr_bulan[$request->bulan2-1]." ".$request->tahun;
+        $arr_bulan = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+        $periode = $arr_bulan[$request->bulan1 - 1] . " s/d " . $arr_bulan[$request->bulan2 - 1] . " " . $request->tahun;
         $bulan1 = ($request->bulan1 < 10 ? '0' . $request->bulan1 : $request->bulan1);
         $bulan2 = ($request->bulan2 < 10 ? '0' . $request->bulan2 : $request->bulan2);
         $gaji = Gaji::with(['karyawan' => function ($query) {
@@ -133,6 +143,45 @@ class AdminController extends Controller
                 'periode' => $periode
             ]
         );
-        return $pdf->stream('Laporan Gaji_' . $arr_bulan[$request->bulan1-1]."-".$arr_bulan[$request->bulan2-1]."_".$request->tahun);
+        return $pdf->stream('Laporan Gaji_' . $arr_bulan[$request->bulan1 - 1] . "-" . $arr_bulan[$request->bulan2 - 1] . "_" . $request->tahun);
+    }
+
+    function addKaryawan(Request $request){
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'name' => ['required'],
+                'jabatan' => ['required'],
+                'address' => ['required'],
+                'birth' => ['required'],
+                'phone' => ['required', 'numeric'],
+                'gender' => ['required'],
+                'start_work' => ['required'],
+            ]
+        );
+
+        if ($validator->fails()) {
+            return response()->json([
+                'error'    => true,
+                'messages' => $validator->errors(),
+            ], 422);
+        }
+
+        $karyawan = new Karyawan;
+        $karyawan->id = date('hms').rand(0,9);
+        $karyawan->name = $request->name;
+        $karyawan->username = $karyawan->id;
+        $karyawan->password = $karyawan->id;
+        $karyawan->jabatan_id = $request->jabatan;
+        $karyawan->address = $request->address;
+        $karyawan->birth = $request->birth;
+        $karyawan->phone = $request->phone;
+        $karyawan->gender = $request->gender;
+        $karyawan->start_work = $request->start_work;
+        $karyawan->save();
+
+        return response()->json([
+            'error' => false,
+        ], 200);
     }
 }

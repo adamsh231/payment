@@ -1,6 +1,7 @@
 @extends('layout/admin')
 @section('title', 'Karyawan')
 @section('add_style')
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
 @endsection
 @section('content')
@@ -9,7 +10,7 @@
         <p class="text-center text-primary m-0 font-weight-bold">Karyawan</p>
     </div>
     <div class="card-body">
-        <a class="btn btn-primary btn-sm float-right btn-icon-split" role="button" style="margin-bottom: 12px;">
+        <a class="btn btn-primary btn-sm float-right btn-icon-split" data-toggle="modal" data-target="#modal_add_karyawan" style="margin-bottom: 12px;">
             <span class="text-white-50 icon">
                 <i class="fa fa-user-plus"></i>
             </span>
@@ -41,14 +42,102 @@
         </div>
     </div>
 </div>
+
+@component('component/modal')
+@slot('modal_id','modal_add_karyawan')
+@slot('modal_title', 'Tambah Karyawan')
+@slot('modal_size', 'modal-lg')
+@slot('modal_body')
+<form>
+    <div class="form-group">
+        <label>
+            <strong>Nama</strong>
+        </label>
+        <input class="form-control" type="text" placeholder="Nama Karyawan" name="name">
+        <small name="name" class="form-text text-danger d-none"></small>
+    </div>
+    <div class="form-group">
+        <label>
+            <strong>Jabatan</strong>
+        </label>
+        <select class="form-control" name="jabatan">
+            <option selected></option>
+            @foreach ($jabatan as $j)
+            <option value="{{ $j->id }}">{{ $j->name }}</option>
+            @endforeach
+        </select>
+        <small name="jabatan" class="form-text text-danger d-none"></small>
+    </div>
+    <div class="form-group">
+        <label>
+            <strong>Alamat</strong>
+        </label>
+        <textarea class="form-control h-150px alamat" rows="6"></textarea>
+        <small name="address" class="form-text text-danger d-none"></small>
+    </div>
+    <div class="form-row">
+        <div class="col">
+            <div class="form-group">
+                <label>
+                    <strong>Tanggal Lahir</strong>
+                    <br>
+                </label>
+                <input class="form-control" type="date" name="birth">
+                <small name="birth" class="form-text text-danger d-none"></small>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label>
+                    <strong>No Handphone</strong>
+                </label>
+                <input class="form-control" type="number" placeholder="Nomor Handphone Karyawan" name="phone">
+                <small name="phone" class="form-text text-danger d-none"></small>
+            </div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col">
+            <div class="form-group">
+                <label>
+                    <strong>Jenis Kelamin</strong>
+                </label>
+                <select class="form-control" name="gender">
+                    <option selected></option>
+                    <option value="0">Wanita</option>
+                    <option value="1">Pria</option>
+                </select>
+                <small name="gender" class="form-text text-danger d-none"></small>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label>
+                    <strong>Mulai Bekerja</strong>
+                </label>
+                <input class="form-control" type="date" name="start_work">
+                <small name="start_work" class="form-text text-danger d-none"></small>
+            </div>
+        </div>
+    </div>
+</form>
+@endslot
+@slot('modal_footer')
+<button onclick="tambah()" class="btn btn-primary">Tambah</button>
+@endslot
+@endcomponent
+
 @endsection
+
 @section('add_script')
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script type="text/javascript" charset="utf8" src="{{ asset('assets/js/admin_karyawan.js') }}"></script>
 <script>
     $(document).ready( function () {
         $('#karyawan_table').DataTable({
             "lengthMenu": [[5, 10, 25, -1], [5, 10, 25, "All"]]
         });
-    } );
+    });
 </script>
 @endsection

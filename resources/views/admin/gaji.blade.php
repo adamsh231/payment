@@ -144,7 +144,6 @@
             <div class="form-group">
                 <label class="d-inline">Total Tunjangan Transport</label>
                 <p class="d-inline-block float-right" id="transport"></p>
-                {{-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> --}}
             </div>
             <hr>
             <div class="form-group">

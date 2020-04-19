@@ -12,6 +12,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+
+        $id_karyawan = date('hms');
         DB::table('admin')->insert([
             'id' => '100',
             'username' => 'admin',
@@ -47,7 +49,7 @@ class DatabaseSeeder extends Seeder
         }
 
         DB::table('karyawan')->insert([
-            'id' => '1',
+            'id' => $id_karyawan.'1',
             'jabatan_id' => '3',
             'name' => 'Adam Syarif Hidayatullah',
             'username' => 'adamsh231',
@@ -67,7 +69,7 @@ class DatabaseSeeder extends Seeder
             if ($i > 1) {
                 $gender = $faker->numberBetween(0, 1);
                 DB::table('karyawan')->insert([
-                    'id' => $i,
+                    'id' => $id_karyawan.$i,
                     'jabatan_id' => $faker->numberBetween(1, 8),
                     'name' => $faker->name($gender),
                     'username' => $faker->userName,
@@ -86,7 +88,7 @@ class DatabaseSeeder extends Seeder
                 $overtime = ($worktime == 1 ? $faker->numberBetween(0, 1) : 0);
                 DB::table('presensi')->insert([
                     'id' => $presensi_id_count,
-                    'karyawan_id' => $i,
+                    'karyawan_id' => $id_karyawan.$i,
                     'worktime' => $worktime,
                     'overtime' => $overtime,
                     'date' => '2019-' . ($bulan + 3) . '-' . $hari,
@@ -95,8 +97,8 @@ class DatabaseSeeder extends Seeder
             }
             for ($j = 1; $j <= 3; $j++) {
                 DB::table('gaji')->insert([
-                    'id' => $gaji_id_count,
-                    'karyawan_id' => $i,
+                    'id' => date('hms').$gaji_id_count,
+                    'karyawan_id' => $id_karyawan.$i,
                     'period' => '2019-' . ($j + 3) . '-1',
                     // 'status' => $faker->numberBetween(0, 1),
                 ]);
