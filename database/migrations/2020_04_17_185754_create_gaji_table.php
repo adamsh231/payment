@@ -16,7 +16,8 @@ class CreateGajiTable extends Migration
         Schema::create('gaji', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('karyawan_id');
-            $table->date('period'); //TODO: Adding Status?
+            $table->date('period');
+            $table->bigInteger('total')->default(0);
             $table->boolean('status')->default(0);
             $table->timestamps();
         });

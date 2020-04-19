@@ -35,7 +35,7 @@
                             <option value="{{ $t->tahun }}" @if($tahun==$t->tahun) selected @endif>{{ $t->tahun }}</option>
                             @endforeach
                             {{-- Start Potential Bug !!--}}
-                            <option value="{{ date('Y') }}" @if($tahun==date('Y')) selected @endif>{{ date('Y') }}</option>
+                            {{-- <option value="{{ date('Y') }}" @if($tahun==date('Y')) selected @endif>{{ date('Y') }}</option> --}}
                             {{-- End Potential Bug !!--}}
                         </select>
                     </div>
@@ -72,6 +72,7 @@
                         $makan = $k->presensi->sum('worktime') * $k->jabatan->food;
                         $transport = $k->presensi->sum('worktime') * $k->jabatan->transport;
                         $total = $harian + $lembur + $makan + $transport;
+                        $real_total = $harian + $lembur + $makan + $transport;
                         $harian = "Rp " . number_format($harian,2,',','.');
                         $lembur = "Rp " . number_format($lembur,2,',','.');
                         $makan = "Rp " . number_format($makan,2,',','.');
@@ -88,11 +89,11 @@
                             <td class="text-center">
                                 @foreach ($k->gaji as $kg)
                                 @if ($kg->status)
-                                <a class="btn btn-success btn-circle ml-1" target="_blank" href="{{ url('admin/slip/'.$k->id.'/'.$bulan.'/'.$tahun.'/invoice') }}" data-toggle="tooltip" data-bs-tooltip="" title="Cetak Ulang">
+                                <a class="btn btn-success btn-circle ml-1" target="_blank" href="{{ url('admin/slip/'.$k->id.'/'.$bulan.'/'.$tahun) }}" data-toggle="tooltip" data-bs-tooltip="" title="Cetak Ulang">
                                     <i class="fas fa-check text-white"></i>
                                 </a>
                                 @else
-                                <a class="btn btn-info btn-sm btn-icon-split" data-toggle="modal" data-target="#modal_gaji" onclick="viewModalGaji({{$id}}, '{{$nama}}', '{{$jabatan}}', '{{$harian}}', '{{$lembur}}', '{{$makan}}', '{{$transport}}', '{{$total}}')">
+                                <a class="btn btn-info btn-sm btn-icon-split" data-toggle="modal" data-target="#modal_gaji" onclick="viewModalGaji({{$id}}, '{{$nama}}', '{{$jabatan}}', '{{$harian}}', '{{$lembur}}', '{{$makan}}', '{{$transport}}', '{{$total}}', {{$real_total}})">
                                     <span class="text-white-50 icon">
                                         <i class="fa fa-calculator"></i>
                                     </span>
@@ -170,7 +171,7 @@
         });
     });
 
-    function viewModalGaji(id, nama, jabatan, harian, lembur, makan, transport, total){
+    function viewModalGaji(id, nama, jabatan, harian, lembur, makan, transport, total, real_total){
         $("#form_gaji #id").html(id);
         $("#form_gaji #nama").html(nama);
         $("#form_gaji #jabatan").html(jabatan);
@@ -181,11 +182,11 @@
         $("#form_gaji #total").html(total);
         $('#btn_bayar').off('click');
         $("#btn_bayar").click(function () {
-            bayar(id);
+            bayar(id, real_total);
         });
     }
 
-    function bayar(id){
+    function bayar(id, total){
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -198,20 +199,23 @@
                 id: id,
                 bulan: $("#periode select[name=bulan]").val(),
                 tahun: $("#periode select[name=tahun]").val(),
+                total: total,
             },
             dataType: 'json',
             success: function (data) {
+                $('#modal_gaji').modal('hide');
                 Swal.fire({
                     title: 'Pembayaran Berhasil!',
                     icon: 'success',
                     showConfirmButton: true,
                     showCancelButton: true,
-                    confirmButtonText: "Cetak Slip Gaji"
+                    confirmButtonText: "Cetak Slip Gaji",
+                    cancelButtonText: "Ok"
                 }).then((result) => {
                     if (result.value) {
                         bulan =  $("#periode select[name=bulan]").val();
                         tahun =  $("#periode select[name=tahun]").val();
-                        window.open('/admin/slip/'+id+'/'+bulan+'/'+tahun+'/invoice', '_blank');
+                        window.open('/admin/slip/'+id+'/'+bulan+'/'+tahun, '_blank');
                     }
                     window.location.reload();
                 });

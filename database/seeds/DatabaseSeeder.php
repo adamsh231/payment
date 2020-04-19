@@ -98,7 +98,7 @@ class DatabaseSeeder extends Seeder
                     'id' => $gaji_id_count,
                     'karyawan_id' => $i,
                     'period' => '2019-' . ($j + 3) . '-1',
-                    'status' => $faker->numberBetween(0, 1),
+                    // 'status' => $faker->numberBetween(0, 1),
                 ]);
                 $gaji_id_count++;
             }

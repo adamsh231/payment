@@ -1,3 +1,6 @@
+<head>
+    <title>Slip Gaji</title>
+</head>
 @php
 $harian = $karyawan->presensi->sum('worktime') * $karyawan->jabatan->worktime;
 $lembur = $karyawan->presensi->sum('overtime') * $karyawan->jabatan->overtime;

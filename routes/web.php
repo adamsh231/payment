@@ -32,14 +32,13 @@ Route::group(['middleware' => ['isAdmin']], function () {
     });
     Route::get('/admin/karyawan', 'AdminController@karyawan');
     Route::get('/admin/gaji', 'AdminController@gaji');
-    Route::get('/admin/laporan', function () {
-        return view('admin/laporan', ['active' => 3]);
-    });
+    Route::get('/admin/laporan', 'AdminController@laporan');
     Route::get('/admin/profile', function () {
         return view('admin/profile', ['active' => 4]);
     });
     Route::patch('/admin/slip', 'AdminController@statusGaji');
-    Route::get('/admin/slip/{karyawan_id}/{bulan}/{tahun}/invoice', 'AdminController@cetak');
+    Route::get('/admin/slip/{karyawan_id}/{bulan}/{tahun}', 'AdminController@invoice');
+    Route::get('/admin/laporan/cetak', 'AdminController@cetak');
 });
 
 Route::group(['middleware' => ['isKaryawan']], function () {
