@@ -9,6 +9,7 @@ use App\Presensi;
 use App\Gaji;
 use App\Jabatan;
 use PDF;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -171,7 +172,7 @@ class AdminController extends Controller
         $karyawan->id = date('hms').rand(0,9);
         $karyawan->name = $request->name;
         $karyawan->username = $karyawan->id;
-        $karyawan->password = $karyawan->id;
+        $karyawan->password = Hash::make($karyawan->id);
         $karyawan->jabatan_id = $request->jabatan;
         $karyawan->address = $request->address;
         $karyawan->birth = $request->birth;
