@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Presensi;
+use App\Karyawan;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 
 class KaryawanController extends Controller
 {
@@ -45,15 +49,61 @@ class KaryawanController extends Controller
         );
     }
 
-    public function absenHadir(Presensi $presensi){
+    public function absenHadir(Presensi $presensi)
+    {
         $presensi->worktime = 1;
         $presensi->save();
         return back();
     }
 
-    public function lemburHadir(Presensi $presensi){
+    public function lemburHadir(Presensi $presensi)
+    {
         $presensi->overtime = 1;
         $presensi->save();
         return back();
+    }
+
+    public function biodata()
+    {
+        $karyawan = Karyawan::with(['jabatan'])->find(Auth::guard('karyawan')->user()->id);
+        return view(
+            'karyawan/biodata',
+            [
+                'active' => 1,
+                'karyawan' => $karyawan            ]
+        );
+    }
+
+    public function editBiodata(Request $request, Karyawan $karyawan){
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'name' => ['required'],
+                'username' => ['required', Rule::unique('karyawan')->ignore($karyawan->id)],
+                'address' => ['required'],
+                'birth' => ['required'],
+                'phone' => ['required', 'numeric', Rule::unique('karyawan')->ignore($karyawan->id)],
+                'gender' => ['required'],
+            ]
+        );
+
+        if ($validator->fails()) {
+            return response()->json([
+                'error'    => true,
+                'messages' => $validator->errors(),
+            ], 422);
+        }
+
+        $karyawan->name = $request->name;
+        $karyawan->username = $request->username;
+        $karyawan->address = $request->address;
+        $karyawan->birth = $request->birth;
+        $karyawan->phone = $request->phone;
+        $karyawan->gender = $request->gender;
+        $karyawan->save();
+
+        return response()->json([
+            'error' => false,
+        ], 200);
     }
 }
