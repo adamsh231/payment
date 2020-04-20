@@ -69,7 +69,7 @@
                             <li class="nav-item dropdown no-arrow" role="presentation">
                                 <div class="nav-item dropdown no-arrow">
                                     <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#">
-                                        <span class="d-none d-lg-inline mr-2 text-gray-600 small">Valerie Luna</span>
+                                        <span class="d-none d-lg-inline mr-2 text-gray-600 small">{{ Auth::guard('karyawan')->user()->name }}</span>
                                         <img class="border rounded-circle img-profile" src="{{ asset('assets/img/ss_logo.jpg') }}">
                                     </a>
                                     <div class="dropdown-menu shadow dropdown-menu-right animated--grow-in" role="menu">

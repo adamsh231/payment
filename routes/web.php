@@ -52,12 +52,10 @@ Route::group(['middleware' => ['isKaryawan']], function () {
     Route::get('/karyawan/biodata', function () {
         return view('karyawan/biodata', ['active' => 1]);
     });
-    Route::get('/karyawan/absen', function () {
-        return view('karyawan/absen', ['active' => 2]);
-    });
-    Route::get('/karyawan/lembur', function () {
-        return view('karyawan/lembur', ['active' => 3]);
-    });
+    Route::get('/karyawan/absen', 'KaryawanController@presensi');
+    Route::post('/karyawan/absen/{presensi}', 'KaryawanController@absenHadir');
+    Route::get('/karyawan/lembur', 'KaryawanController@lembur');
+    Route::post('/karyawan/lembur/{presensi}', 'KaryawanController@lemburHadir');
     Route::get('/karyawan/profile', function () {
         return view('karyawan/profile', ['active' => 4]);
     });
