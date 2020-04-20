@@ -63,10 +63,16 @@
         </div>
     </section>
 </div>
+
 <div class="footer-basic">
     <footer style="margin-top: 22px;">
         <div class="social" style="padding: 0px;"><a href="#"><i class="icon ion-social-instagram"></i></a><a href="#"><i class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a href="#"><i class="icon ion-social-facebook"></i></a></div>
         <p class="copyright" style="margin-top: 9px;">Waroeng SS © 2020</p>
     </footer>
 </div>
+<!-- BEGIN: Powered by Supercounters.com -->
+<center><script type="text/javascript" src="//widget.supercounters.com/ssl/tab.js"></script><script type="text/javascript">var sc_tab_var = sc_tab_var || [];sc_tab(1576805,"bottom","right")</script><br><noscript><a href="http://www.supercounters.com/">free Online Counter</a></noscript>
+</center>
+<!-- END: Powered by Supercounters.com -->
+
 @endsection
