@@ -14,7 +14,12 @@ class KaryawanController extends Controller
 {
     public function presensi()
     {
-        $presensi = Presensi::where('karyawan_id', Auth::guard('karyawan')->user()->id)->orderBy('date', 'desc')->get();
+        $presensi = Presensi::where(
+            [
+                ['karyawan_id', Auth::guard('karyawan')->user()->id],
+                ['date', '<=', date('Y-m-d')]
+            ]
+        )->orderBy('date', 'desc')->get();
         $absen = Presensi::where(
             [
                 ['date', date('Y-m-d')],
@@ -32,7 +37,12 @@ class KaryawanController extends Controller
     }
     public function lembur()
     {
-        $presensi = Presensi::where('karyawan_id', Auth::guard('karyawan')->user()->id)->orderBy('date', 'desc')->get();
+        $presensi = Presensi::where(
+            [
+                ['karyawan_id', Auth::guard('karyawan')->user()->id],
+                ['date', '<=', date('Y-m-d')]
+            ]
+        )->orderBy('date', 'desc')->get();
         $absen = Presensi::where(
             [
                 ['date', date('Y-m-d')],
@@ -70,11 +80,13 @@ class KaryawanController extends Controller
             'karyawan/biodata',
             [
                 'active' => 1,
-                'karyawan' => $karyawan            ]
+                'karyawan' => $karyawan
+            ]
         );
     }
 
-    public function editBiodata(Request $request, Karyawan $karyawan){
+    public function editBiodata(Request $request, Karyawan $karyawan)
+    {
         $validator = Validator::make(
             $request->all(),
             [
