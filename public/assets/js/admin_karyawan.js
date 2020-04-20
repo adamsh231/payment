@@ -19,6 +19,11 @@ function tambah() {
         },
         dataType: 'json',
         beforeSend: function () {
+            Swal.fire({
+                title: 'Loading...',
+                showConfirmButton: false,
+                allowOutsideClick: false
+            });
             arr_err = ['name', 'jabatan', 'address', 'birth', 'phone', 'gender', 'start_work'];
             for (let index = 0; index < arr_err.length; index++) {
                 $('#modal_add_karyawan small[name=' + arr_err[index] + ']').removeClass('d-block').addClass('d-none');
@@ -37,6 +42,7 @@ function tambah() {
             }, 700);
         },
         error: function (data, errortype) {
+            Swal.close();
             if (errortype == 'timeout') {
                 Swal.fire({
                     title: 'Connection Time Out!',
@@ -75,7 +81,7 @@ function viewModalEdit(id, name, username, jabatan, address, birth, phone, gende
     });
 }
 
-function editKaryawan(id){
+function editKaryawan(id) {
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -83,7 +89,7 @@ function editKaryawan(id){
     });
     $.ajax({
         type: 'PATCH',
-        url: '/admin/karyawan/'+id,
+        url: '/admin/karyawan/' + id,
         timeout: 2000,
         data: {
             name: $('#modal_edit_karyawan input[name=name]').val(),
@@ -98,12 +104,17 @@ function editKaryawan(id){
         },
         dataType: 'json',
         beforeSend: function () {
+            Swal.fire({
+                title: 'Loading...',
+                showConfirmButton: false,
+                allowOutsideClick: false
+            });
             arr_err = ['name', 'username', 'jabatan', 'address', 'birth', 'phone', 'gender', 'start_work'];
             for (let index = 0; index < arr_err.length; index++) {
                 $('#modal_edit_karyawan small[name=' + arr_err[index] + ']').removeClass('d-block').addClass('d-none');
             }
         },
-        success: function(data){
+        success: function (data) {
             $('#modal_edit_karyawan').modal('hide');
             Swal.fire({
                 title: 'Data Ditambahkan!',
@@ -115,7 +126,8 @@ function editKaryawan(id){
                 window.location.reload();
             }, 700);
         },
-        error: function(data, errortype){
+        error: function (data, errortype) {
+            Swal.close();
             if (errortype == 'timeout') {
                 Swal.fire({
                     title: 'Connection Time Out!',
@@ -134,6 +146,56 @@ function editKaryawan(id){
                     $('#modal_edit_karyawan small[name=' + arr_err[index] + ']').removeClass('d-none').addClass('d-block');
                 }
             }
+        }
+    });
+}
+
+function deleteKaryawan(id, nama) {
+    Swal.fire({
+        title: 'Are You Sure!',
+        html: 'Delete <b class="text-danger">'+nama+'</b>',
+        icon: 'warning',
+        confirmButtonText: 'Yes, Delete it!',
+        confirmButtonColor: '#d33',
+        showConfirmButton: true,
+        showCancelButton: true,
+    }).then((result) => {
+        if (result.value) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                type: 'DELETE',
+                url: '/admin/karyawan/' + id,
+                timeout: 2000,
+                beforeSend: function () {
+                    Swal.fire({
+                        title: 'Loading...',
+                        showConfirmButton: false,
+                        allowOutsideClick: false
+                    });
+                },
+                success: function (data) {
+                    Swal.fire({
+                        title: 'Terhapus!',
+                        icon: 'success',
+                        showConfirmButton: false,
+                        timer: 700
+                    });
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 700);
+                },
+                error: function (data) {
+                    Swal.fire({
+                        title: 'Connection Time Out!',
+                        icon: 'warning',
+                        showConfirmButton: true,
+                    });
+                }
+            });
         }
     });
 }

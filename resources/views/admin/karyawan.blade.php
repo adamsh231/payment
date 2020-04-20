@@ -38,7 +38,7 @@
                             <a onclick="viewModalEdit({{$k->id}},'{{$k->name}}','{{$k->username}}',{{$k->jabatan->id}},'{{$k->address}}','{{$k->birth}}','{{$k->phone}}',{{$k->gender}},'{{$k->start_work}}')" class="btn btn-primary btn-circle ml-1" role="button">
                                 <i class="fa fa-pencil text-white"></i>
                             </a>
-                            <a class="btn btn-danger btn-circle ml-1" role="button">
+                            <a onclick="deleteKaryawan({{$k->id}},'{{$k->name}}')" class="btn btn-danger btn-circle ml-1" role="button">
                                 <i class="fas fa-trash text-white"></i>
                             </a>
                         </td>

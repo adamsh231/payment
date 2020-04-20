@@ -201,6 +201,13 @@
                 total: total,
             },
             dataType: 'json',
+            beforeSend: function () {
+                Swal.fire({
+                    title: 'Loading...',
+                    showConfirmButton: false,
+                    allowOutsideClick: false
+                });
+            },
             success: function (data) {
                 $('#modal_gaji').modal('hide');
                 Swal.fire({

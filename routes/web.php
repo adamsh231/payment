@@ -33,6 +33,7 @@ Route::group(['middleware' => ['isAdmin']], function () {
     Route::get('/admin/karyawan', 'AdminController@karyawan');
     Route::put('/admin/karyawan', 'AdminController@addKaryawan');
     Route::patch('/admin/karyawan/{karyawan}', 'AdminController@editKaryawan');
+    Route::delete('/admin/karyawan/{karyawan}', 'AdminController@deleteKaryawan');
     Route::get('/admin/gaji', 'AdminController@gaji');
     Route::get('/admin/laporan', 'AdminController@laporan');
     Route::get('/admin/profile', function () {

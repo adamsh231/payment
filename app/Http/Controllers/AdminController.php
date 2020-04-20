@@ -251,4 +251,11 @@ class AdminController extends Controller
             'error' => false,
         ], 200);
     }
+
+    function deleteKaryawan(Karyawan $karyawan){
+        $karyawan->delete();
+        return response()->json([
+            'error' => false,
+        ], 200);
+    }
 }
