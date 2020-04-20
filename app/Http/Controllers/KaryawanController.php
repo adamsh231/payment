@@ -106,4 +106,28 @@ class KaryawanController extends Controller
             'error' => false,
         ], 200);
     }
+
+    function password(Request $request)
+    {
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'password' => ['required', 'confirmed'],
+                'password_confirmation' => ['required'],
+            ]
+        );
+        if ($validator->fails()) {
+            return response()->json([
+                'error' => true,
+                'messages' => $validator->errors(),
+            ], 422);
+        }
+
+        $karyawan = Karyawan::find(Auth::guard('karyawan')->user()->id);
+        $karyawan->password = Hash::make($request->password);
+        $karyawan->save();
+        return response()->json([
+            'error' => false,
+        ], 200);
+    }
 }

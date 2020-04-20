@@ -50,6 +50,7 @@ Route::group(['middleware' => ['isKaryawan']], function () {
         return view('karyawan/dashboard', ['active' => 0]);
     });
     Route::get('/karyawan/biodata', 'KaryawanController@biodata');
+    Route::patch('/karyawan/password', 'KaryawanController@password');
     Route::patch('/karyawan/biodata/{karyawan}', 'KaryawanController@editBiodata');
     Route::get('/karyawan/absen', 'KaryawanController@presensi');
     Route::post('/karyawan/absen/{presensi}', 'KaryawanController@absenHadir');
