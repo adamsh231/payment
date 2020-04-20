@@ -56,7 +56,6 @@
                 window.location.reload();
             },
             error: function(data, errortype){
-                console.log(data.responseText);
                 Swal.close();
                 if(errortype == 'timeout'){
                     Swal.fire({
