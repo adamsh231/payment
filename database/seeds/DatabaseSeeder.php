@@ -82,7 +82,7 @@ class DatabaseSeeder extends Seeder
                 ]);
             }
 
-            $jml_hari = 31;
+            $jml_hari = 30; //! Potential Bug
             //2019
             for ($j = 1; $j <= 12; $j++) {
                 if ($j % 2 == 0) {
