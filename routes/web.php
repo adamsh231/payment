@@ -30,6 +30,7 @@ Route::group(['middleware' => ['isAdmin']], function () {
     Route::get('/admin', function () {
         return view('admin/dashboard', ['active' => 0]);
     });
+    Route::patch('/admin/password', 'AdminController@password');
     Route::get('/admin/karyawan', 'AdminController@karyawan');
     Route::put('/admin/karyawan', 'AdminController@addKaryawan');
     Route::patch('/admin/karyawan/{karyawan}', 'AdminController@editKaryawan');

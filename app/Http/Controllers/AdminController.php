@@ -8,9 +8,11 @@ use App\Karyawan;
 use App\Presensi;
 use App\Gaji;
 use App\Jabatan;
+use App\Admin;
 use PDF;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
@@ -125,7 +127,7 @@ class AdminController extends Controller
 
     function cetak(Request $request)
     {
-        if(!$request->filled('bulan1')){
+        if (!$request->filled('bulan1')) {
             return redirect('/admin/laporan');
         }
 
@@ -176,7 +178,7 @@ class AdminController extends Controller
         }
 
         $karyawan = new Karyawan;
-        $karyawan->id = date('hms').rand(0,9);
+        $karyawan->id = date('hms') . rand(0, 9);
         $karyawan->name = $request->name;
         $karyawan->username = $karyawan->id;
         $karyawan->password = Hash::make($karyawan->id);
@@ -195,15 +197,15 @@ class AdminController extends Controller
             $presensi->date = date('Y-m-d');
             $presensi->save();
             $gaji = new Gaji;
-            $gaji->id = date('hms').rand(0,9);
+            $gaji->id = date('hms') . rand(0, 9);
             $gaji->karyawan_id = $karyawan->id;
-            $gaji->period = date('Y-m').'-01';
+            $gaji->period = date('Y-m') . '-01';
             $gaji->save();
         } else if (date('m-Y', strtotime($request->start_work)) == date('m-Y')) {
             $gaji = new Gaji;
-            $gaji->id = date('hms').rand(0,9);
+            $gaji->id = date('hms') . rand(0, 9);
             $gaji->karyawan_id = $karyawan->id;
-            $gaji->period = date('Y-m').'-01';
+            $gaji->period = date('Y-m') . '-01';
             $gaji->save();
         }
 
@@ -212,7 +214,8 @@ class AdminController extends Controller
         ], 200);
     }
 
-    function editKaryawan(Request $request, Karyawan $karyawan){
+    function editKaryawan(Request $request, Karyawan $karyawan)
+    {
         $validator = Validator::make(
             $request->all(),
             [
@@ -236,7 +239,7 @@ class AdminController extends Controller
 
         $karyawan->name = $request->name;
         $karyawan->username = $request->username;
-        if($request->filled('password')){
+        if ($request->filled('password')) {
             $karyawan->password = Hash::make($request->password);
         }
         $karyawan->jabatan_id = $request->jabatan;
@@ -252,8 +255,33 @@ class AdminController extends Controller
         ], 200);
     }
 
-    function deleteKaryawan(Karyawan $karyawan){
+    function deleteKaryawan(Karyawan $karyawan)
+    {
         $karyawan->delete();
+        return response()->json([
+            'error' => false,
+        ], 200);
+    }
+
+    function password(Request $request)
+    {
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'password' => ['required', 'confirmed'],
+                'password_confirmation' => ['required'],
+            ]
+        );
+        if ($validator->fails()) {
+            return response()->json([
+                'error' => true,
+                'messages' => $validator->errors(),
+            ], 422);
+        }
+
+        $admin = Admin::find(Auth::guard('admin')->user()->id);
+        $admin->password = Hash::make($request->password);
+        $admin->save();
         return response()->json([
             'error' => false,
         ], 200);

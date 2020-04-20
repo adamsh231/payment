@@ -136,7 +136,6 @@ function editKaryawan(id) {
                 });
             }
             var errors = $.parseJSON(data.responseText);
-            console.log(data.responseText);
             arr_err = ['name', 'username', 'jabatan', 'address', 'birth', 'phone', 'gender', 'start_work'];
             for (let index = 0; index < arr_err.length; index++) {
                 if (errors.messages[arr_err[index]] === undefined) {
