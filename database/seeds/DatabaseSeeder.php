@@ -84,11 +84,13 @@ class DatabaseSeeder extends Seeder
 
             $jml_hari = 0;
             $feb = 29;
-            for ($i = 1; $i <= 2; $i++) {
-                if ($i = 1) {
+            $tahun = 2019;
+            for ($x = 1; $x <= 2; $x++) {
+                if ($x == 1) {
                     $feb = 28;
                 } else {
                     $feb = 29;
+                    $tahun = 2020;
                 }
                 for ($j = 1; $j <= 12; $j++) {
                     if ($j <= 7) {
@@ -115,14 +117,14 @@ class DatabaseSeeder extends Seeder
                             'karyawan_id' => $id_karyawan . $i,
                             'worktime' => $worktime,
                             'overtime' => $overtime,
-                            'date' => '2019-' . $j . '-' . $k,
+                            'date' => $tahun . '-'. $j . '-' . $k,
                         ]);
                         $presensi_id_count++;
                     }
                     DB::table('gaji')->insert([
                         'id' => date('hms') . $gaji_id_count,
                         'karyawan_id' => $id_karyawan . $i,
-                        'period' => '2019-' . $j . '-1',
+                        'period' => $tahun . '-'. $j . '-1',
                     ]);
                     $gaji_id_count++;
                 }
