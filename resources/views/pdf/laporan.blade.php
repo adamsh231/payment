@@ -7,7 +7,7 @@
     </style>
 </head>
 <h1 style="text-align: center">LAPORAN GAJI</h1>
-<p>Waroeng Super Sambal "SS"</p>
+<p>Waroeng Spesial Sambal "SS"</p>
 <p style="text-align: right">Periode:  {{ $periode }}</p>
 
 @php
