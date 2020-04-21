@@ -217,7 +217,7 @@ class AdminController extends Controller
                 $presensi->save();
             }
             $gaji = new Gaji;
-            $gaji->id = date('hms') . rand(0, 9);
+            $gaji->id = date('hms') . $j;
             $gaji->karyawan_id = $karyawan->id;
             $gaji->period = $tahun . '-' . $j . '-01';
             $gaji->save();
