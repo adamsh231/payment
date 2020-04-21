@@ -192,44 +192,37 @@ class AdminController extends Controller
 
         $jml_hari = 0; //! Potential Bug from start_work not from years
         $feb = 29;
-        $tahun = 2019;
-        for ($i = 1; $i <= 2; $i++) {
-            if ($i == 1) {
-                $feb = 28;
-            } else {
-                $feb = 29;
-                $tahun = 2020;
-            }
-            for ($j = 1; $j <= 12; $j++) {
-                if ($j <= 7) {
-                    if ($j % 2 == 0) {
-                        $jml_hari = 30;
-                    } else {
-                        $jml_hari = 31;
-                    }
-                    if ($j == 2) {
-                        $jml_hari = $feb;
-                    }
+        $tahun = date('Y');
+        for ($j = date('m'); $j <= 12; $j++) {
+            if ($j <= 7) {
+                if ($j % 2 == 0) {
+                    $jml_hari = 30;
                 } else {
-                    if ($j % 2 == 0) {
-                        $jml_hari = 31;
-                    } else {
-                        $jml_hari = 30;
-                    }
+                    $jml_hari = 31;
                 }
-                for ($k = 1; $k <= $jml_hari; $k++) {
-                    $presensi = new Presensi;
-                    $presensi->karyawan_id = $karyawan->id;
-                    $presensi->date = $tahun . '-' . $j . '-' . $k;
-                    $presensi->save();
+                if ($j == 2) {
+                    $jml_hari = $feb;
                 }
-                $gaji = new Gaji;
-                $gaji->id = date('hms') . rand(0, 9);
-                $gaji->karyawan_id = $karyawan->id;
-                $gaji->period = $tahun . '-' . $j . '-01';
-                $gaji->save();
+            } else {
+                if ($j % 2 == 0) {
+                    $jml_hari = 31;
+                } else {
+                    $jml_hari = 30;
+                }
             }
+            for ($k = 1; $k <= $jml_hari; $k++) {
+                $presensi = new Presensi;
+                $presensi->karyawan_id = $karyawan->id;
+                $presensi->date = $tahun . '-' . $j . '-' . $k;
+                $presensi->save();
+            }
+            $gaji = new Gaji;
+            $gaji->id = date('hms') . rand(0, 9);
+            $gaji->karyawan_id = $karyawan->id;
+            $gaji->period = $tahun . '-' . $j . '-01';
+            $gaji->save();
         }
+
 
         return response()->json([
             'error' => false,
