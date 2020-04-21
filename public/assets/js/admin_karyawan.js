@@ -7,7 +7,7 @@ function tambah() {
     $.ajax({
         type: 'PUT',
         url: '/admin/karyawan',
-        timeout: 2000,
+        // timeout: 10000,
         data: {
             name: $('#modal_add_karyawan input[name=name]').val(),
             jabatan: $('#modal_add_karyawan select[name=jabatan]').val(),
@@ -42,11 +42,18 @@ function tambah() {
             }, 700);
         },
         error: function (data, errortype) {
+            console.log(data.responseText);
             Swal.close();
             if (errortype == 'timeout') {
                 Swal.fire({
                     title: 'Connection Time Out!',
                     icon: 'warning',
+                    showConfirmButton: true,
+                });
+            }else{
+                Swal.fire({
+                    title: 'Error!',
+                    icon: 'error',
                     showConfirmButton: true,
                 });
             }

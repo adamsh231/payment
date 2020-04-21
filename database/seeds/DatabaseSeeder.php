@@ -82,69 +82,50 @@ class DatabaseSeeder extends Seeder
                 ]);
             }
 
-            $jml_hari = 30; //! Potential Bug
-            //2019
-            for ($j = 1; $j <= 12; $j++) {
-                if ($j % 2 == 0) {
-                    $jml_hari = 30;
+            $jml_hari = 0;
+            $feb = 29;
+            for ($i = 1; $i <= 2; $i++) {
+                if ($i = 1) {
+                    $feb = 28;
+                } else {
+                    $feb = 29;
                 }
-                if ($j == 2) {
-                    $jml_hari = 28;
-                }
-                for ($k = 1; $k <= $jml_hari; $k++) {
-                    $worktime = $faker->numberBetween(0, 1);
-                    $overtime = ($worktime == 1 ? $faker->numberBetween(0, 1) : 0);
-                    DB::table('presensi')->insert([
-                        'id' => $presensi_id_count,
-                        'karyawan_id' => $id_karyawan . $i,
-                        'worktime' => $worktime,
-                        'overtime' => $overtime,
-                        'date' => '2019-' . $j . '-' . $k,
-                    ]);
-                    $presensi_id_count++;
-                }
-                DB::table('gaji')->insert([
-                    'id' => date('hms') . $gaji_id_count,
-                    'karyawan_id' => $id_karyawan . $i,
-                    'period' => '2019-' . $j . '-1',
-                ]);
-                $gaji_id_count++;
-            }
-
-            //2020
-            for ($j = 1; $j <= 12; $j++) {
-                if ($j % 2 == 0) {
-                    $jml_hari = 30;
-                }
-                if ($j == 2) {
-                    $jml_hari = 29;
-                }
-                for ($k = 1; $k <= $jml_hari; $k++) {
-                    $worktime = $faker->numberBetween(0, 1);
-                    $overtime = ($worktime == 1 ? $faker->numberBetween(0, 1) : 0);
-                    if ($j > 3 && $k >= 20) {
-                        $worktime = 0;
-                        $overtime = 0;
+                for ($j = 1; $j <= 12; $j++) {
+                    if ($j <= 7) {
+                        if ($j % 2 == 0) {
+                            $jml_hari = 30;
+                        } else {
+                            $jml_hari = 31;
+                        }
+                        if ($j == 2) {
+                            $jml_hari = $feb;
+                        }
+                    } else {
+                        if ($j % 2 == 0) {
+                            $jml_hari = 31;
+                        } else {
+                            $jml_hari = 30;
+                        }
                     }
-                    if ($j > 4) {
-                        $worktime = 0;
-                        $overtime = 0;
+                    for ($k = 1; $k <= $jml_hari; $k++) {
+                        $worktime = $faker->numberBetween(0, 1);
+                        $overtime = ($worktime == 1 ? $faker->numberBetween(0, 1) : 0);
+                        DB::table('presensi')->insert([
+                            'id' => $presensi_id_count,
+                            'karyawan_id' => $id_karyawan . $i,
+                            'worktime' => $worktime,
+                            'overtime' => $overtime,
+                            'date' => '2019-' . $j . '-' . $k,
+                        ]);
+                        $presensi_id_count++;
                     }
-                    DB::table('presensi')->insert([
-                        'id' => $presensi_id_count,
+                    DB::table('gaji')->insert([
+                        'id' => date('hms') . $gaji_id_count,
                         'karyawan_id' => $id_karyawan . $i,
-                        'worktime' => $worktime,
-                        'overtime' => $overtime,
-                        'date' => '2020-' . $j . '-' . $k,
+                        'period' => '2019-' . $j . '-1',
                     ]);
-                    $presensi_id_count++;
+                    $gaji_id_count++;
                 }
-                DB::table('gaji')->insert([
-                    'id' => date('hms') . $gaji_id_count,
-                    'karyawan_id' => $id_karyawan . $i,
-                    'period' => '2020-' . $j . '-1',
-                ]);
-                $gaji_id_count++;
             }
         }
     }
