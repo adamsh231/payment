@@ -42,7 +42,6 @@ function tambah() {
             }, 700);
         },
         error: function (data, errortype) {
-            console.log(data.responseText);
             Swal.close();
             if (errortype == 'timeout') {
                 Swal.fire({
