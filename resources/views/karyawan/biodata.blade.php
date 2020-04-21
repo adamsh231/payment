@@ -10,6 +10,14 @@
     </div>
     <div class="card-body">
         <form id="form_biodata">
+            <hr>
+            <div class="form-group text-center">
+                <label>
+                    {{-- <strong>ID Karyawan</strong> --}}
+                </label>
+                <b class="text-info">{{ $karyawan->id }} - {{ $karyawan->jabatan->name }}</b>
+            </div>
+            <hr>
             <div class="form-group">
                 <label>
                     <strong>Nama</strong>
@@ -19,15 +27,9 @@
             </div>
             <div class="form-group">
                 <label>
-                    <strong>Jabatan</strong>
-                </label>
-                <p>{{ $karyawan->jabatan->name }}</p>
-            </div>
-            <div class="form-group">
-                <label>
                     <strong>Username</strong>
                 </label>
-                <input class="form-control" type="text" placeholder="Username Karyawan" name="username"  value="{{ $karyawan->username }}">
+                <input class="form-control" type="text" placeholder="Username Karyawan" name="username" value="{{ $karyawan->username }}">
                 <small name="username" class="form-text text-danger d-none"></small>
             </div>
             <div class="form-group">
@@ -53,7 +55,7 @@
                         <label>
                             <strong>No Handphone</strong>
                         </label>
-                        <input class="form-control" type="text" placeholder="Nomor Handphone Karyawan" name="phone"  value="{{ $karyawan->phone }}">
+                        <input class="form-control" type="text" placeholder="Nomor Handphone Karyawan" name="phone" value="{{ $karyawan->phone }}">
                         <small name="phone" class="form-text text-danger d-none"></small>
                     </div>
                 </div>
