@@ -16,7 +16,7 @@ $total = $harian + $lembur + $makan + $transport;
                     <tbody>
                         <tr style="height: 50px;">
                             <td style="width: 33.3333%; height: 50px;">
-                                <p><strong>Waroeng Super Sambal "SS"</strong></p>
+                                <p><strong>Waroeng Spesial Sambal "SS"</strong></p>
                                 <p style="font-size: 15px; margin-bottom: 0px">Jl. Kolonel Ahmad Syam, Jawa Barat</p>
                                 <p style="font-size: 15px; margin-top: 0px; margin-bottom: 0px">Telp 08562575039</p>
                             </td>
@@ -109,7 +109,7 @@ $total = $harian + $lembur + $makan + $transport;
                                                                                             <td style="width: 40.1935%;">
                                                                                                 <p style="text-align: left;margin-bottom: 50px; margin-left: 25px">{{ "Rp " . number_format($total,2,',','.') }}</p>
                                                                                                 <p style="text-align: center;margin-top: 50px">{{ date('d M Y', strtotime($tahun.'-'.$bulan.'-01')) }}</p>
-                                                                                                <p style="text-align: center;margin-top: 100px">Waroeng Super Sambal "SS"</p>
+                                                                                                <p style="text-align: center;margin-top: 100px">Waroeng Spesial Sambal "SS"</p>
                                                                                             </td>
                                                                                         </tr>
                                                                                     </tbody>
