@@ -52,14 +52,13 @@
                 <table class="table dataTable my-0 table-striped" id="gaji_table">
                     <thead>
                         <tr>
-                            <th class="text-center" style="width: 15%">ID Karyawan</th>
+                            <th class="text-center" style="width: 10%">ID Karyawan</th>
                             <th class="text-center">Nama</th>
                             <th class="text-center">Jumlah Absen</th>
                             <th class="text-center">Jumlah Lembur</th>
-                            <th class="text-center">Gaji Harian</th>
-                            <th class="text-center">Gaji Lembur</th>
+                            <th class="text-center" style="width: 12%">Gaji Harian</th>
+                            <th class="text-center" style="width: 12%">Gaji Lembur</th>
                             <th class="text-center">Action</th>
-                            </th>
                     </thead>
                     <tbody>
                         @foreach ($karyawan as $k)
